@@ -20,7 +20,8 @@ public class PlayerUser extends IPlayer {
 
             row = in.nextInt() - 1;
             col = in.nextInt() - 1;
-            if (gameBoard.isCellEmpty(row,col)) {
+
+            if (gameBoard.isCellValid(row,col) && gameBoard.isCellEmpty(row,col)) {
                 isInputValid = true;
             } else {
                 System.out.println("This move at (" + (row + 1) + "," + (col + 1) + ") is not valid. Try again...");

@@ -46,7 +46,7 @@ public class Game {
         do {
             gameBoard.printBoard();
             playerMove(players[currentPlayer]);
-            if (!setScores()){
+            if (setScores()){ //if there is score, don't change player
                 currentPlayer = (currentPlayer == 0) ? 1 : 0;
             }
             printScores();
@@ -58,9 +58,10 @@ public class Game {
         int totalScore = gameBoard.getScoreOfBoard();
         int newScore = totalScore - (players[0].getScore() + players[1].getScore());
         players[currentPlayer].addScore(newScore);
-        return newScore == 0 ? false : true;
+        return newScore == 0;
     }
     public void endGame(){
+        gameBoard.printBoard();
         if (players[0].getScore() > players[1].getScore()){
             System.out.println("Player1 (Computer) has won!");
         }

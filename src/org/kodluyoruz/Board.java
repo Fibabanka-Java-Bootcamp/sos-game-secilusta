@@ -5,7 +5,7 @@ import com.sun.tools.corba.se.idl.InvalidArgument;
 public class Board {
 
     private Cell[][] board;
-    private final StringBuilder horizontal = new StringBuilder("-------------");
+    private final StringBuilder horizontal = new StringBuilder("-----------------");
     private final String vertical = "|";
     private int size;
 
@@ -35,10 +35,21 @@ public class Board {
 
     public void printBoard(){
         System.out.println(horizontal);
-        for (Cell[] line: board) {
-            for (Cell cell: line) {
+        for (int i=0; i<=board.length; i++){
+            for (int j=0; j<=board[0].length; j++){
                 System.out.print(vertical);
-                cell.printValue();
+                if (i==0 && j!=0){
+                    Cell.printCellValue(Integer.toString(j));
+                }
+                else if (i==0){
+                    Cell.printCellValue(" ");
+                }
+                else if (j==0 && i!=0){
+                    Cell.printCellValue(Integer.toString(i));
+                }
+                else{
+                    board[i-1][j-1].printValue();
+                }
             }
             System.out.println(vertical);
             System.out.println(horizontal);
@@ -107,51 +118,11 @@ public class Board {
         return board[x][y].getCellValue() == CellValue.EMPTY;
     }
 
+    public boolean isCellValid(int x, int y){
+        return x<size && y<size;
+    }
+
     public void play(int x, int y, CellValue value){
         board[x][y].setCellValue(value);
     }
 }
-
-/*
-    public int getScoreOfMove(int x, int y, CellValue value)
-    {
-        int score = 0;
-        int gap = 1;
-        if (value == CellValue.S) gap = 2;
-
-        for (int i=x-gap; i<board.length && i<x+gap; i++)
-        {
-            for (int j=y-gap; j<board[i].length && j<y+gap; j++)
-            {
-                if (board[i][j].getCellValue() == CellValue.S
-                        &&
-                        board[i+1][j].getCellValue() == CellValue.O
-                        &&
-                        board[i+2][j].getCellValue() == CellValue.S)
-                {
-                    System.out.println("yan");
-                    score++;
-                }
-                if (board[i][j].getCellValue() == CellValue.S
-                        &&
-                        board[i][j+1].getCellValue() == CellValue.O
-                        &&
-                        board[i][j+2].getCellValue() == CellValue.S)
-                {
-                    System.out.println("dik");
-                    score++;
-                }
-                if (board[i][j].getCellValue() == CellValue.S
-                        &&
-                        board[i+1][j+1].getCellValue() == CellValue.O
-                        &&
-                        board[i+2][j+2].getCellValue() == CellValue.S)
-                {
-                    System.out.println("çap");
-                    score++;
-                }
-            }
-        }
-        return score;
-    }
-*/

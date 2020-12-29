@@ -29,4 +29,8 @@ class Cell {
                 break;
         }
     }
+
+    static void printCellValue(String value) {
+        System.out.print(" "+value+" ");
+    }
 }
